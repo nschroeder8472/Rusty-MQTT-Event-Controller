@@ -5,7 +5,7 @@ use tokio::task;
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
-    let mut mqtt_options = MqttOptions::new("rusty-scene-controller", "10.56.18.200", 1883);
+    let mut mqtt_options = MqttOptions::new("rusty-event-controller", "10.56.18.200", 1883);
     mqtt_options.set_keep_alive(Duration::from_secs(5));
     let (mut client, mut eventloop) = AsyncClient::new(mqtt_options, 10);
     client.subscribe("zwave/Deck/BackyardLight/37/0/currentValue", QoS::AtLeastOnce).await.unwrap();

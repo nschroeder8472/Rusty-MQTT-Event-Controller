@@ -1,0 +1,16 @@
+{
+  "client_id": "rusty-event-controller",
+  "host": "localhost",
+  "port": 1883,
+  "simpleEvents": [{
+    "subTopic": "",
+    "subValue": "",
+    "pubTopic": "",
+    "pubValue": ""
+  }],
+  "scriptEvents": [{
+    "subTopic": "",
+    "luaScriptFile": "",
+    "pubTopic": ""
+  }]
+}
