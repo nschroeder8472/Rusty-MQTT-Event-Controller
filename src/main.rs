@@ -1,17 +1,33 @@
+mod structs;
+mod mqtt;
+
+use std::collections::HashMap;
 use std::error::Error;
 use std::time::Duration;
+use clap::Parser;
 use rumqttc::{AsyncClient, Event, LastWill, MqttOptions, Packet, QoS};
 use tokio::task;
+use crate::mqtt::mqtt_client::setup_mqtt;
+use crate::structs::config::{setup_config, Config};
 
+#[derive(Parser)]
+struct Cli {
+    #[arg(short = 'c', long = "config", default_value = "/data/config.json")]
+    config_file: String,
+}
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
-    let mut mqtt_options = MqttOptions::new("rusty-event-controller", "10.56.18.200", 1883);
-    mqtt_options.set_keep_alive(Duration::from_secs(5));
-    let (mut client, mut eventloop) = AsyncClient::new(mqtt_options, 10);
-    client.subscribe("zwave/Deck/BackyardLight/37/0/currentValue", QoS::AtLeastOnce).await.unwrap();
+    let args = Cli::parse();
+    let config: Config = setup_config(args.config_file);
 
+    let mut event_loop = setup_mqtt(&config).await;
+
+    let mut map: HashMap<String, String>= HashMap::new();
+    for sub_event in config.sub_events {
+        map.insert(sub_event.sub_topic, sub_event.lua_script_file);
+    }
     loop {
-        match eventloop.poll().await {
+        match event_loop.poll().await {
             Ok(notification) => {
                 // Handle different types of notifications
                 match notification {
@@ -19,13 +35,16 @@ async fn main() {
                         // Extract topic and payload
                         let topic = publish.topic;
                         let payload = String::from_utf8_lossy(&publish.payload);
-                        println!("Received message on topic '{}'", topic);
+                        let message = payload.to_string();
+                        if message == "3" {
+                            println!("{}", map.get(&topic).unwrap());
+                        }
                     }
                     Event::Incoming(event) => {
-                        println!("Received event: {:?}", event);
+                        //println!("Received event: {:?}", event);
                     }
                     Event::Outgoing(event) => {
-                        println!("Outgoing event: {:?}", event);
+                        //println!("Outgoing event: {:?}", event);
                     }
                 }
             }

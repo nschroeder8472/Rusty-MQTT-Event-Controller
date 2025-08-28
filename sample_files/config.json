@@ -1,16 +1,15 @@
 {
   "client_id": "rusty-event-controller",
-  "host": "localhost",
+  "host": "10.56.18.200",
   "port": 1883,
-  "simpleEvents": [{
-    "subTopic": "",
-    "subValue": "",
-    "pubTopic": "",
-    "pubValue": ""
-  }],
-  "scriptEvents": [{
-    "subTopic": "",
-    "luaScriptFile": "",
-    "pubTopic": ""
+  "sub_events": [{
+    "qos": 2,
+    "sub_topic": "zwave/Master_Bedroom/MasterBedroomLight/91/0/scene/001",
+    "lua_script_file": "LightOnLuaFile ujoun"
+  },
+  {
+    "qos": 2,
+    "sub_topic": "zwave/Master_Bedroom/MasterBedroomLight/91/0/scene/002",
+    "lua_script_file": "LightOffLuaFile"
   }]
 }
