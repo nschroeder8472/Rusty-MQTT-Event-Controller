@@ -2,7 +2,7 @@
   "client_id": "rusty-event-controller",
   "host": "10.56.18.200",
   "port": 1883,
-  "script_dir": "C:/Users/nschr/RustroverProjects/Rusty-MQTT-Scene-Controller/sample_files/lua_scripts/",
+  "script_dir": "/Users/niklausschroeder/RustroverProjects/Rusty-MQTT-Event-Controller/sample_files/lua_scripts",
   "sub_events": [{
     "qos": 2,
     "sub_topic": "zwave/Master_Bedroom/MasterBedroomLight/91/0/scene/001",
