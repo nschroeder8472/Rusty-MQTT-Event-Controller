@@ -39,9 +39,7 @@ async fn main() {
     println!("after the event loop")
 }
 
-//lua ownership needs to be passed to the loop to prevent terminating the vm
-//noinspection RsExternalLinter
-async fn start_event_loop(mut event_loop: EventLoop, lua: Lua, map: HashMap<String, Function>) {
+async fn start_event_loop(mut event_loop: EventLoop, _lua: Lua, map: HashMap<String, Function>) {
     loop {
         match event_loop.poll().await {
             Ok(notification) => {

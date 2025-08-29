@@ -1,7 +1,8 @@
 [package]
 name = "RustyMQTTEventController"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2024"
+license = "MIT License"
 
 [dependencies]
 rumqttc = "0.24.0"
@@ -10,4 +11,3 @@ serde = { version = "1.0.219", features = ["derive"] }
 clap = { version = "4.5.32", features = ["derive"] }
 serde_json = "1.0.143"
 mlua = { version = "0.11.2", features = ["lua54", "vendored", "async"] }
-once_cell = "1.21.3"

@@ -41,10 +41,7 @@ pub fn setup_config(config_file: String) -> Config {
 
 fn deserialize_qos<'de, D>(deserializer: D) -> Result<QoS, D::Error>
 where D: Deserializer<'de>, {
-    // Deserialize the input as an integer
     let value: u8 = u8::deserialize(deserializer)?;
-
-    // Map the integer to the corresponding QoS variant
     match value {
         0 => Ok(QoS::AtMostOnce),
         1 => Ok(QoS::AtLeastOnce),

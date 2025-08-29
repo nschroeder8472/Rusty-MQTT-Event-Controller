@@ -1,16 +1,12 @@
 {
   "client_id": "rusty-event-controller",
-  "host": "10.56.18.200",
+  "host": "localhost",
   "port": 1883,
-  "script_dir": "/Users/niklausschroeder/RustroverProjects/Rusty-MQTT-Event-Controller/sample_files/lua_scripts",
+  "script_dir": "/sample_files/lua_scripts",
   "sub_events": [{
     "qos": 2,
-    "sub_topic": "zwave/Master_Bedroom/MasterBedroomLight/91/0/scene/001",
-    "lua_script_file": "MasterLightOnScene.lua"
-  },
-  {
-    "qos": 2,
-    "sub_topic": "zwave/Master_Bedroom/MasterBedroomLight/91/0/scene/002",
-    "lua_script_file": "MasterLightOffScene.lua"
-  }]
+    "sub_topic": "example/sub/topic",
+    "lua_script_file": "example.lua"
+  }
+  ]
 }
