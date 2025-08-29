@@ -9,6 +9,7 @@ pub struct Config {
     pub client_id: String,
     pub host: String,
     pub port: u16,
+    pub script_dir: String,
     pub sub_events: Vec<SubEvent>
 }
 
