@@ -1,0 +1,12 @@
+{
+  "client_id": "rusty-event-controller",
+  "host": "localhost",
+  "port": 1883,
+  "script_dir": "/sample_files/lua_scripts",
+  "sub_events": [{
+    "qos": 2,
+    "sub_topic": "example/sub/topic",
+    "lua_script_file": "example.lua"
+  }
+  ]
+}
