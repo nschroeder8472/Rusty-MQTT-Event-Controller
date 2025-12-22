@@ -90,11 +90,20 @@ MQTT Broker → Event Loop → Topic Matcher → Lua Script → Response Actions
 
 ## Lua Script Interface
 
-Lua scripts receive the MQTT payload as a parameter and should return a boolean:
-- `true`: Script executed successfully
+**CRITICAL CONVENTION:** All Lua scripts must define a function named `handle_message`. This is a hard requirement.
+
+```lua
+function handle_message(message)
+    -- message: MQTT payload as string
+    -- return: boolean (true = success, false = silent)
+end
+```
+
+Return values:
+- `true`: Script executed successfully (logs success message)
 - `false`: Silent failure (no log output)
 
-Scripts have access to MQTT publishing functions to send response events.
+Scripts have access to MQTT publishing functions to send response events via the global `publish_message(topic, payload)` function.
 
 ## Key Files
 
@@ -186,6 +195,7 @@ Lua scripts can be tested independently by:
 
 - This is a personal project built for learning and specific home automation needs
 - The author prefers simplicity over feature completeness
+- **CRITICAL:** All Lua scripts must define a function named `handle_message` - this is hardcoded in the Rust code
 - Lua scripting is the primary extension mechanism - avoid suggesting Rust code changes for new event handlers
 - Docker is the preferred deployment method
 - Configuration changes don't require recompilation

@@ -18,7 +18,7 @@ pub async fn setup_lua(map: HashMap<String, String>) -> (Lua, HashMap<String, Fu
         let script_content = fs::read_to_string(entry.1.clone()).expect("Failed to read Lua script");
         let chunk = lua.load(script_content);
         chunk.exec_async().await.expect("Failed to execute function");
-        let func: Function = lua.globals().get("myFunction").expect("Failed to get function");
+        let func: Function = lua.globals().get("handle_message").expect("Failed to get function");
         func_map.insert(entry.0, func);
     };
     (lua, func_map)

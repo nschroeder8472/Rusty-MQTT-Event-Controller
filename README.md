@@ -76,12 +76,12 @@ Create a `config.json` file with the following structure:
 
 ### **IMPORTANT: Required Convention**
 
-**Every Lua script MUST define a function named `myFunction`.** This is a required convention enforced by the application.
+**Every Lua script MUST define a function named `handle_message`.** This is a required convention enforced by the application.
 
 ### Function Signature
 
 ```lua
-function myFunction(message)
+function handle_message(message)
     -- Your logic here
     return true  -- or false
 end
@@ -120,7 +120,7 @@ publish_message("home/light/living-room", "ON")
 ### Example 1: Simple Toggle
 
 ```lua
-function myFunction(message)
+function handle_message(message)
     if message == "1" then
         publish_message("home/light/bedroom", "ON")
         return true
@@ -135,7 +135,7 @@ end
 ### Example 2: Scene Controller
 
 ```lua
-function myFunction(message)
+function handle_message(message)
     -- Parse JSON or handle scene IDs
     local scene_id = tonumber(message)
 
@@ -158,7 +158,7 @@ end
 ### Example 3: Conditional Logic
 
 ```lua
-function myFunction(message)
+function handle_message(message)
     -- Handle motion sensor events
     if message == "motion_detected" then
         -- Only turn on lights between sunset and sunrise
@@ -177,7 +177,7 @@ end
 ### Example 4: Multiple Actions
 
 ```lua
-function myFunction(message)
+function handle_message(message)
     local button_press = tonumber(message)
 
     if button_press == 1 then
@@ -250,7 +250,7 @@ docker logs -f mqtt-controller
 **Problem:** Events arrive but nothing happens
 
 **Solutions:**
-1. Verify your Lua script defines `myFunction` (case-sensitive)
+1. Verify your Lua script defines `handle_message` (case-sensitive)
 2. Check that the script file path in `config.json` is correct
 3. Ensure the script returns `true` to see success logs
 4. Check Docker logs for Lua syntax errors
@@ -294,8 +294,8 @@ docker logs -f mqtt-controller
 ### 5. Can I use multiple MQTT brokers?
 **Answer:** Not currently. The application connects to a single MQTT broker defined in the config.
 
-### 6. Why must the function be named `myFunction`?
-**Answer:** This is a convention enforced by the application. All Lua scripts are loaded into a shared Lua runtime, and the application looks for `myFunction` in the global namespace for each script.
+### 6. Why must the function be named `handle_message`?
+**Answer:** This is a convention enforced by the application. All Lua scripts are loaded into a shared Lua runtime, and the application looks for `handle_message` in the global namespace for each script.
 
 ### 7. Can Lua scripts share state or communicate?
 **Answer:** Yes, technically, since all scripts share the same Lua runtime. However, this is not recommended as it can lead to unexpected behavior. Each script should be independent.
